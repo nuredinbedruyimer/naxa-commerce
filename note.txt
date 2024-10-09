@@ -1,0 +1,35 @@
+The main thing we get from express is The application Object
+    - it uses to define routes
+    - it uses to define middleware
+    - it handle request : request to end point matching
+    - it do thing on the response 
+
+
+
+How can we do The models defination in mongo with  Perfect 
+
+1, What And What Thing Need As Package
+      - mongooose to make the connection with database more structured and organized
+      - bcrypt used to :
+           1, hash the password before save to collection
+           2, used to compare the password(loginPassword and hashedpassword from database)
+2, How can we crete The Model Bur Before crete the model the Schema have to define and sfter that
+   we create the model by using the schema
+   use "Type" to define the The tyoe of the field
+   use "Require" to tell the required fiels and the assocciated Message
+   use "Unique" to define the the uniqness of the field
+   also use other field like trim and min and ma lengthd the timestap true to get created and and updated
+   field
+
+
+3, We have to use pre-hook to do some task
+   - hashthepassword
+
+
+   - And Define the password comparing
+
+4, return the Model to other use
+   
+      
+
+
