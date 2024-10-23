@@ -112,7 +112,7 @@ export const fetchProductController = async(req, res)=>{
         res.status(STATUS_CODES.OK).json({
             success:true, 
             message:"Product Fetch Successfully", 
-            product
+            data:product
         })
 
 
@@ -200,7 +200,8 @@ export const createProductController = async(req, res)=>{
 
         res.status(STATUS_CODES.CREATED).json({
             success:true, 
-            message:"Product Created Successfully !!"
+            message:"Product Created Successfully !!", 
+            products:newProduct
         })
         
     } catch (error) {

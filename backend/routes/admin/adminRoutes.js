@@ -11,8 +11,8 @@ const router = express.Router()
 
 router.post("/image-upload",upload.single("uploaded_image") ,uploadImageController)
 router.post("" ,createProductController)   
-router.put("",updateProductController)
-router.delete("",deleteProductController)
+router.put("/:id",updateProductController)
+router.delete(":id",deleteProductController)
 router.get("", fetchAllProductController)
 
 

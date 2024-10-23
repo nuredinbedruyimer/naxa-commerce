@@ -4,12 +4,16 @@ import { Input } from '../ui/input'
 import { Delete, DeleteIcon, FileIcon, RemoveFormattingIcon, UploadCloudIcon, XIcon } from 'lucide-react'
 import { Button } from '../ui/button'
 import axios from 'axios'
+import { Skeleton } from '../ui/skeleton'
 
 const ImageUpload = ({
     imageFile, 
     setImageFile,
     uploadedImageUrl,
-    setUploadedImageUrl
+    setUploadedImageUrl, 
+    setImageLoadingState, 
+    imageLoadingState
+    
 }) => {
 
   const inputRef = useRef(null)
@@ -55,12 +59,14 @@ const ImageUpload = ({
   }
 
   const uploadImageToCloudinary = async()=>{
+    setImageLoadingState(true)
     const data = new FormData();
     data.append("uploaded_image", imageFile)
     const response = await axios.post("http://localhost:8000/api/admin/products/image-upload", data)
 
     if (response.data?.success){
       setUploadedImageUrl(response.data?.result?.url)
+      setImageLoadingState(false)
     }
   }
   
@@ -87,7 +93,7 @@ const ImageUpload = ({
       !imageFile ? (<Label htmlFor="image-upload" className="flex  flex-col justify-center items-center h-40 cursor-pointer mb-4">
             <UploadCloudIcon className='w-12 h-12 text-muted-foreground mb-3 '/>
             <span className='text-sm font-light'>Drag and Drop or Click To Download Image</span>
-      </Label>):(<div className='flex justify-between items-center'>
+      </Label>):( imageLoadingState ?<Skeleton className="py-8 bg-gray-300"/> : <div className='flex justify-between items-center'>
          <div className='flex justify-between items-center py-6'>
 
           <FileIcon className='w-6 h-6 text-primary mr-2'/>
