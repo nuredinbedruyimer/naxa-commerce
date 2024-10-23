@@ -2,12 +2,19 @@
   "name": "nexacommercebackend",
   "version": "1.0.0",
   "description": "A full-stack eCommerce application built using MERN stack.",
-  "keywords":["ecommerce","mern","mongodb", "express","react","nodejs"],
+  "keywords": [
+    "ecommerce",
+    "mern",
+    "mongodb",
+    "express",
+    "react",
+    "nodejs"
+  ],
   "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server",
-    "dev":"nodemon server.js"
+    "dev": "nodemon server.js"
   },
   "author": "Nuredin Bedru",
   "license": "ISC",

@@ -4,6 +4,8 @@ import  cors from "cors";
 import connectDB from "./database/database.js";
 import authRoutes from "./routes/auth/authRoutes.js"
 import cookieParser from "cookie-parser";
+import adminRoutes from "./routes/admin/adminRoutes.js"
+
 
 dotenv.config()
 
@@ -28,14 +30,15 @@ app.use(cookieParser())
 //  Routes Handling Here
 
 
-connectDB()
 
 const PORT = process.env.PORT || 5000
 app.use("/api/auth", authRoutes)
+app.use("/api/admin/products", adminRoutes)
 
 
-
+connectDB().then(
 app.listen(PORT,()=>{
+
     console.log(`Server is running on : http://localhost:${PORT}`)
 
-})
+}))
