@@ -21,7 +21,6 @@ function Login() {
     event.preventDefault();
     dispatch(loginUser(formData)).then((data)=>{
 
-      console.log("Nuredin Here")
       
 
       if (data?.payload?.success){
@@ -33,6 +32,9 @@ function Login() {
          }else{
           toast({
             title:data?.payload?.message,
+            style: { backgroundColor: '#65FE08', color: 'white' }, // Lime background with white text
+
+            
           })
          }
  
@@ -42,7 +44,7 @@ function Login() {
 
   }
   return (
-    <div className='mx-auto w-full max-w-md space-y-6'>
+    <div className='mx-auto w-full max-w-md space-y-6 bg-white opacity-80 p-6 rounded-md'>
       <div className='text-center'>
       <h1 className='text-3xl text-foreground tracking-tight font-bold'>
         Login To NaxaCommerce

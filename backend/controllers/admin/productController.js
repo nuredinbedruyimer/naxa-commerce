@@ -132,10 +132,12 @@ export const fetchProductController = async(req, res)=>{
 
 export const updateProductController = async(req, res)=>{
     try {
-        const {id} = req.params
+        const id = req.params.id
         const {image, title, description, category, brand, price, salePrice, totalStock} = req.body
+        console.log("ID : ", id)
 
-        const existingProduct = await Product.findByIDd(id)
+
+        const existingProduct = await Product.findById(id)
 
         if (!existingProduct){
             res.status(STATUS_CODES.NOT_FOUND).json({
@@ -168,7 +170,7 @@ export const updateProductController = async(req, res)=>{
 
         
     } catch (error) {
-        console.log("Error In Update Product")
+        console.log("Error In Update Product : ", error)
         res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json({
             success:false, 
             message:STATUS_MESSAGES.INTERNAL_SERVER_ERROR

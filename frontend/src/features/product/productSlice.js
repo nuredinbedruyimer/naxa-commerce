@@ -45,11 +45,9 @@ const initialState = {
     
     }
  )  
- 
- 
  export const updateProducts = createAsyncThunk(
     "/products/update-product", 
-    async(id, formData)=>{
+    async({id, formData})=>{
 
         try {
             const response = await axios.put(`http://localhost:8000/api/admin/products/${id}`, formData,{
@@ -71,7 +69,9 @@ const initialState = {
  export const deleteProduct = createAsyncThunk(
     "/products/delete-product", 
     async(id)=>{
-        const response = await axios.delete(`http://localhost:8000/api/admin/products/:${id}`)
+        const response = await axios.delete(`http://localhost:8000/api/admin/products/${id}`)
+
+        return response.data
 
 
     }
@@ -100,6 +100,8 @@ const producSlice = createSlice({
 
 
 // export {}  = producSlice.actions
+
+export const productSelector = (state) => state.products
 
 
 export default producSlice.reducer

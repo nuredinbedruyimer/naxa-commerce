@@ -38,7 +38,7 @@ function Register() {
   }
   console.log(formData)
   return (
-    <div className='mx-auto w-full max-w-md space-y-6'>
+    <div className='mx-auto w-full max-w-md space-y-6  bg-white opacity-80 p-6 rounded-md'>
       <div className='text-center'>
       <h1 className='text-3xl text-foreground tracking-tight font-bold'>
         Register To NaxaCommerce
