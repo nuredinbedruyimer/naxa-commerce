@@ -12,7 +12,6 @@ import jwt from "jsonwebtoken";
 export const registerController = async(req, res) => {
     //  We Have to Access the Data We Want From The Request and Place To appropriate Place
     const {userName, email, password} = req.body;
-    console.log(role)
 
     try {
 
@@ -105,7 +104,7 @@ export const loginUser = async(req, res) =>{
         //  refresh Token
 
 
-        const token = generateToken({id:foundUser._id, role:foundUser.role, email:foundUser.email})
+        const token = generateToken({id:foundUser._id, role:foundUser.role, email:foundUser.email, userName:foundUser.userName})
         res.cookie("token", token,{
             httpOnly:true,
             secure:false
@@ -117,6 +116,7 @@ export const loginUser = async(req, res) =>{
                 email:foundUser.email,
                 role:foundUser.role,
                 id:foundUser._id,
+                userName:foundUser.userName
             }
             
         })

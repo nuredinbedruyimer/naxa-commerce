@@ -13,6 +13,7 @@ router.post("/login", loginUser)
 router.post("/logout", logoutUser)
 router.get("/check-auth", authMiddleware, (req, res)=>{
     const user = req.user;
+    console.log("I Am user From CCheck Out  : ", user)
     console.log("User From Login Route : ", user)
     console.log(user)
     res.status(STATUS_CODES.OK).json({
