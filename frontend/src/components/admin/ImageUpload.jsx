@@ -9,7 +9,6 @@ import { Skeleton } from '../ui/skeleton'
 const ImageUpload = ({
     imageFile, 
     setImageFile,
-    uploadedImageUrl,
     setUploadedImageUrl, 
     setImageLoadingState, 
     imageLoadingState

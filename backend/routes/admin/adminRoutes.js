@@ -12,7 +12,7 @@ const router = express.Router()
 router.post("/image-upload",upload.single("uploaded_image") ,uploadImageController)
 router.post("" ,createProductController)   
 router.put("/:id",updateProductController)
-router.delete(":id",deleteProductController)
+router.delete("/:id",deleteProductController)
 router.get("", fetchAllProductController)
 
 

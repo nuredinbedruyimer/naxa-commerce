@@ -26,8 +26,8 @@ const AdminProductTile = ({product, setOpenProductDialog,handleDelete,  setCreat
                 setCurrentEditedId(product._id)
                 setCreateProductFormData(product)
             }}><Edit className='text-blue-500 '/></Button>
-            <Button className="bg-white border-2 px-2 w-[50%] hover:border-blue-500 ">
-            <Trash2 onClick={()=>handleDelete(product._id)} className='text-red-500' />
+            <Button onClick={()=>handleDelete(product._id)} className="bg-white border-2 px-2 w-[50%] hover:border-blue-500 ">
+            <Trash2  className='text-red-500' />
             </Button>
 
             </CardFooter>

@@ -49,8 +49,8 @@ export const deleteProductController = async(req, res)=>{
             return
         }
 
-        res.status(STATUS_CODES.Ok).json({
-            success:false, 
+        res.status(STATUS_CODES.OK).json({
+            success:true, 
             message:"Product  Deleted Successfully"
         })
 
@@ -58,7 +58,7 @@ export const deleteProductController = async(req, res)=>{
 
         
     } catch (error) {
-        console.log("Error In Creating Product")
+        console.log("Error In Deleting  Product : ", error)
         res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json({
             success:false, 
             message:STATUS_MESSAGES.INTERNAL_SERVER_ERROR
