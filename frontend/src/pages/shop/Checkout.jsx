@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ShopCheckout = () => {
-  return (
-    <div>
-      ShopCheckOutPage
-    </div>
-  )
-}
+  return <div className="mx-10">ShopCheckOutPage</div>;
+};
 
-export default ShopCheckout
+export default ShopCheckout;

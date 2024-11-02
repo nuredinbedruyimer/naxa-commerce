@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ShopAccount = () => {
-  return (
-    <div>
-      Accout Page
-    </div>
-  )
-}
+  return <div className="mx-10">Accout Page</div>;
+};
 
-export default ShopAccount
+export default ShopAccount;
