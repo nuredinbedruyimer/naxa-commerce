@@ -4,7 +4,7 @@ import React from "react";
 
 const ProductFilter = () => {
   return (
-    <div className="bg-gray-100 max-w-md shadow-sm rounded-lg p-4">
+    <div className="bg-gray-100 min-w-48 max-w-48 h-fit shadow-sm rounded-lg p-4">
       <div className="p-4 border-b border-blue-700">
         <h2 className="text-lg font-extrabold text-black ">Filters</h2>
       </div>
@@ -12,10 +12,10 @@ const ProductFilter = () => {
         {Object.keys(filterOptions).map((filterItem) => {
           return (
             <div key={filterItem.id}>
-              <div className="text-lime-500 text-md text-center font-bold">
+              <div className="text-lime-500 text-md  font-bold">
                 {filterItem.toUpperCase()}
               </div>
-              <div className="grid grid-cols-2">
+              <div className="">
                 {filterOptions[filterItem].map((option) => {
                   return (
                     <div className="flex gap-3 items-baseline">
