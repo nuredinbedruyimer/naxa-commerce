@@ -2,7 +2,46 @@ import { Product } from "../../models/productModel.js";
 
 export const fetchFilteredProducts = async (req, res) => {
   try {
-    const filteredProducts = await Product.find({});
+    console.log("Query String : ", req.query);
+    const {
+      categories = [],
+      brands = [],
+      sortBy = "price-lowtohigh",
+    } = req.query;
+    let filters = {};
+
+    if (categories.length) {
+      filters.category = { $in: categories.split(",") };
+    }
+    if (brands.length) {
+      filters.brand = { $in: brands.split(",") };
+    }
+    let sort = {};
+    switch (sortBy) {
+      case "price-lowtohigh":
+        sort.price = 1;
+
+        break;
+      case "price-hightolow":
+        sort.price = -1;
+
+        break;
+      case "title-atoz":
+        sort.title = 1;
+
+        break;
+      case "title-ztoa":
+        sort.title = -1;
+
+        break;
+
+      default:
+        sort.price = 1;
+        break;
+    }
+
+    const filteredProducts = await Product.find(filters).sort(sort);
+    console.log(filteredProducts);
 
     res.status(200).json({
       success: true,
