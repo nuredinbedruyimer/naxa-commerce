@@ -19,6 +19,7 @@ import {
 import ShoppingProductTile from "@/components/shop/ProductTile";
 import { useSearchParams } from "react-router-dom";
 import { createSearchParams } from "@/helpers/createQueryParame";
+import ProductDetail from "@/components/shop/ProductDetail";
 
 const ShopListing = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const ShopListing = () => {
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     if (filter !== null && sort !== null) {
@@ -83,6 +85,12 @@ const ShopListing = () => {
     console.log("Product Detail:", product);
   };
 
+  useEffect(() => {
+    if (product !== null) {
+      setOpenDialog(true);
+    }
+  }, [product]);
+
   return (
     <div className="m-10 flex justify-between gap-6">
       <ProductFilter filter={filter} handleFilter={handleFilter} />
@@ -136,6 +144,11 @@ const ShopListing = () => {
           )}
         </div>
       </div>
+      <ProductDetail
+        open={openDialog}
+        setOpen={setOpenDialog}
+        productDetail={product}
+      />
     </div>
   );
 };
