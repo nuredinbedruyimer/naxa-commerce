@@ -6,7 +6,7 @@ export const fetchFilteredProducts = async (req, res) => {
     const {
       categories = [],
       brands = [],
-      sortBy = "price-lowtohigh",
+      sort = "price-lowtohigh",
     } = req.query;
     let filters = {};
 
@@ -16,32 +16,33 @@ export const fetchFilteredProducts = async (req, res) => {
     if (brands.length) {
       filters.brand = { $in: brands.split(",") };
     }
-    let sort = {};
-    switch (sortBy) {
+    let sortBy = {};
+    switch (sort) {
       case "price-lowtohigh":
-        sort.price = 1;
+        sortBy.price = 1;
 
         break;
       case "price-hightolow":
-        sort.price = -1;
+        sortBy.price = -1;
 
         break;
       case "title-atoz":
-        sort.title = 1;
+        sortBy.title = 1;
 
         break;
       case "title-ztoa":
-        sort.title = -1;
+        sortBy.title = -1;
 
         break;
 
       default:
-        sort.price = 1;
+        sortBy.title = -1;
         break;
     }
 
-    const filteredProducts = await Product.find(filters).sort(sort);
-    console.log(filteredProducts);
+    console.log("Sort BY Value : ", sortBy);
+
+    const filteredProducts = await Product.find(filters).sort(sortBy);
 
     res.status(200).json({
       success: true,
@@ -50,6 +51,33 @@ export const fetchFilteredProducts = async (req, res) => {
     });
   } catch (error) {
     console.log("Fetch FIltered Product : ", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
+export const fetchProductByID = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const product = await Product.findById(id);
+
+    if (!product) {
+      res.status(404).json({
+        success: false,
+        message: "Product Is Not Found",
+      });
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Product Get Successfully",
+      product: product,
+    });
+  } catch (error) {
+    console.log(" Error In Fetch Single Product : ", error);
     res.status(500).json({
       success: false,
       message: "Internal Server Error",

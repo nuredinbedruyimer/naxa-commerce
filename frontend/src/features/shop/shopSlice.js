@@ -5,7 +5,25 @@ const initialState = {
   isLoading: false,
 
   products: [],
+  product: null,
 };
+
+export const fetchProductDetail = createAsyncThunk(
+  "/products/fetch-product-detail",
+  async (id) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/api/shop/products/${id}`
+      );
+
+      console.log("Product Detail Response : ", response);
+
+      return response.data?.product;
+    } catch (error) {
+      console.log("Error In Fetching Product Detail Axios : ", error);
+    }
+  }
+);
 
 export const fetchAllFilteredProducts = createAsyncThunk(
   "/products/fetch-all-filted-products",
@@ -18,7 +36,6 @@ export const fetchAllFilteredProducts = createAsyncThunk(
       const response = await axios.get(
         `http://localhost:8000/api/shop/products?${queryString}`
       );
-      console.log("Filtered Product Response: ", response);
 
       return response.data?.products;
     } catch (error) {
@@ -44,6 +61,18 @@ const shoppingProductSlice = createSlice({
       .addCase(fetchAllFilteredProducts.rejected, (state) => {
         state.isLoading = false;
         state.products = [];
+      })
+      .addCase(fetchProductDetail.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchProductDetail.fulfilled, (state, action) => {
+        state.isLoading = false;
+        console.log("Produt Payload Here : ", action.payload);
+        state.product = action.payload;
+      })
+      .addCase(fetchProductDetail.rejected, (state) => {
+        state.isLoading = false;
+        state.products = null;
       });
   },
 });

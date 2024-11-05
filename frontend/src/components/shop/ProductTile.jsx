@@ -3,10 +3,13 @@ import { Button } from "../ui/button";
 import { brandOptionsMap, categoryOptionsMap } from "@/config";
 import { Badge } from "../ui/badge";
 
-function ShoppingProductTile({ product }) {
+function ShoppingProductTile({ product, handleProductDetail }) {
   return (
     <Card className="w-full max-w-sm mx-auto">
-      <div>
+      <div
+        onClick={() => handleProductDetail(product?._id)}
+        className="cursor-pointer"
+      >
         <div className="relative">
           <img
             src={product?.image}

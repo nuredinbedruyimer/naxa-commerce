@@ -12,14 +12,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ArrowUpDown } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllFilteredProducts } from "@/features/shop/shopSlice";
+import {
+  fetchAllFilteredProducts,
+  fetchProductDetail,
+} from "@/features/shop/shopSlice";
 import ShoppingProductTile from "@/components/shop/ProductTile";
 import { useSearchParams } from "react-router-dom";
 import { createSearchParams } from "@/helpers/createQueryParame";
 
 const ShopListing = () => {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.shoppingProducts);
+  const { products, product } = useSelector((state) => state.shoppingProducts);
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -33,16 +36,13 @@ const ShopListing = () => {
   }, [dispatch, filter, sort]);
 
   useEffect(() => {
-    const queryString = createSearchParams(filter);
+    const queryString = createSearchParams(filter || {});
     console.log("Query String : ", queryString);
     setSearchParams(new URLSearchParams(queryString));
   }, [filter]);
 
   console.log("Fetched Shopping Product : ", products);
 
-  const handleSort = (value) => {
-    console.log("Sorted Value Staff : ", value);
-  };
   function handleFilter(getSectionID, getCurrentOptions) {
     console.log("Filter Handler : ", getCurrentOptions, getSectionID);
     let copyFilters = { ...filter };
@@ -68,13 +68,20 @@ const ShopListing = () => {
     setFilter(copyFilters);
     sessionStorage.setItem("filters", JSON.stringify(copyFilters));
 
-    console.log("I have right also : ", JSON.stringify(copyFilters));
+    console.log("I have right also : ", copyFilters);
   }
-
   useEffect(() => {
     setSort("price-lowtohigh");
     setFilter(JSON.parse(sessionStorage.getItem("filters")));
   }, []);
+  const handleSort = (value) => {
+    setSort(value);
+    console.log("Sorted Value Staff : ", value);
+  };
+  const handleProductDetail = (id) => {
+    dispatch(fetchProductDetail(id));
+    console.log("Product Detail:", product);
+  };
 
   return (
     <div className="m-10 flex justify-between gap-6">
@@ -116,7 +123,11 @@ const ShopListing = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-4 gap-4">
           {products && products.length > 0 ? (
             products.map((product) => (
-              <ShoppingProductTile product={product} key={product?.title} />
+              <ShoppingProductTile
+                product={product}
+                key={product?.title}
+                handleProductDetail={handleProductDetail}
+              />
             ))
           ) : (
             <h1 className="text-xl font-extrabold text-lime-500">
