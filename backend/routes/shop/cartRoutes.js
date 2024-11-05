@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post("", addToCartController);
 router.get("/:userId", fetchCartItemsController);
-router.put("/", updateCartItemController);
+router.put("", updateCartItemController);
 router.delete("/:userId/:productId", deleteCartItemController);
 
 export default router;
