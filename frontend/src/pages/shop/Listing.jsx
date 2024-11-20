@@ -20,10 +20,15 @@ import ShoppingProductTile from "@/components/shop/ProductTile";
 import { useSearchParams } from "react-router-dom";
 import { createSearchParams } from "@/helpers/createQueryParame";
 import ProductDetail from "@/components/shop/ProductDetail";
+import { addToCart, fetchCartItems } from "@/features/shop/cartSlice";
 
 const ShopListing = () => {
   const dispatch = useDispatch();
   const { products, product } = useSelector((state) => state.shoppingProducts);
+  const { user } = useSelector((state) => state.auth);
+  const { cartItems } = useSelector((state) => state.cart);
+  console.log("Cart Items : ", cartItems);
+
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -38,15 +43,11 @@ const ShopListing = () => {
   }, [dispatch, filter, sort]);
 
   useEffect(() => {
-    const queryString = createSearchParams(filter || {});
-    console.log("Query String : ", queryString);
+    const queryString = createSearchParams(filter);
     setSearchParams(new URLSearchParams(queryString));
   }, [filter]);
 
-  console.log("Fetched Shopping Product : ", products);
-
   function handleFilter(getSectionID, getCurrentOptions) {
-    console.log("Filter Handler : ", getCurrentOptions, getSectionID);
     let copyFilters = { ...filter };
 
     const indexOfCurrentSection =
@@ -69,8 +70,6 @@ const ShopListing = () => {
     }
     setFilter(copyFilters);
     sessionStorage.setItem("filters", JSON.stringify(copyFilters));
-
-    console.log("I have right also : ", copyFilters);
   }
   useEffect(() => {
     setSort("price-lowtohigh");
@@ -78,11 +77,19 @@ const ShopListing = () => {
   }, []);
   const handleSort = (value) => {
     setSort(value);
-    console.log("Sorted Value Staff : ", value);
   };
   const handleProductDetail = (id) => {
     dispatch(fetchProductDetail(id));
-    console.log("Product Detail:", product);
+  };
+  const handleAddToCart = (id) => {
+    console.log("ID : ", id);
+    dispatch(addToCart({ userId: user?.id, productId: id, quantity: 1 })).then(
+      (data) => {
+        if (data?.payload.success) {
+          fetchCartItems(user?.id);
+        }
+      }
+    );
   };
 
   useEffect(() => {
@@ -135,6 +142,7 @@ const ShopListing = () => {
                 product={product}
                 key={product?.title}
                 handleProductDetail={handleProductDetail}
+                handleAddToCart={handleAddToCart}
               />
             ))
           ) : (

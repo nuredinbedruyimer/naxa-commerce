@@ -36,6 +36,7 @@ export const fetchAllFilteredProducts = createAsyncThunk(
       const response = await axios.get(
         `http://localhost:8000/api/shop/products?${queryString}`
       );
+      console.log("I am Fetched Here : ", response.data);
 
       return response.data?.products;
     } catch (error) {
