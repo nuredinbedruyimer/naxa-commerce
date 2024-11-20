@@ -1,5 +1,5 @@
 import { LogOut, ShoppingBag, ShoppingCart, UserCog } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import {
   DropdownMenuSeparator,
@@ -14,11 +14,13 @@ import { Sheet } from "../ui/sheet";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "@/features/auth/authSlice";
+import UserCartWrapper from "./CartWrapper";
 
 function HeaderRightContent() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  const [openCartSheet, setOpenCartSheet] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout()).then((response) => {
@@ -28,7 +30,7 @@ function HeaderRightContent() {
   // console.log("User Name : ", user)
   return (
     <div className="flex lg:items-center lg:flex-row flex-col gap-4">
-      <Sheet>
+      <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
         <Button
           onClick={() => setOpenCartSheet(true)}
           variant="outline"
@@ -39,6 +41,7 @@ function HeaderRightContent() {
           <span className="absolute top-[-5px] right-[2px] font-bold text-sm"></span>
           <span className="sr-only">User cart</span>
         </Button>
+        <UserCartWrapper />
       </Sheet>
 
       <DropdownMenu>

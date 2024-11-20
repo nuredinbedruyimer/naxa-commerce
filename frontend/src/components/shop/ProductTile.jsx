@@ -3,7 +3,11 @@ import { Button } from "../ui/button";
 import { brandOptionsMap, categoryOptionsMap } from "@/config";
 import { Badge } from "../ui/badge";
 
-function ShoppingProductTile({ product, handleProductDetail }) {
+function ShoppingProductTile({
+  product,
+  handleProductDetail,
+  handleAddToCart,
+}) {
   return (
     <Card className="w-full max-w-sm mx-auto">
       <div
@@ -62,7 +66,12 @@ function ShoppingProductTile({ product, handleProductDetail }) {
             Out Of Stock
           </Button>
         ) : (
-          <Button className="w-full">Add to cart</Button>
+          <Button
+            className="w-full"
+            onClick={() => handleAddToCart(product._id)}
+          >
+            Add to cart
+          </Button>
         )}
       </CardFooter>
     </Card>
