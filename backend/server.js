@@ -36,7 +36,7 @@ const PORT = process.env.PORT || 5000;
 app.use("/api/auth", authRoutes);
 app.use("/api/admin/products", adminRoutes);
 app.use("/api/shop/products", shopRoutes);
-app.use("/api/cart", cartRoutes);
+app.use("/api/shop/cart", cartRoutes);
 
 connectDB().then(
   app.listen(PORT, () => {
