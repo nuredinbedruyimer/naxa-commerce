@@ -23,7 +23,7 @@ How can we do The models defination in mongo with  Perfect
 
 
 3, We have to use pre-hook to do some task
-   - hashthepassword
+   - hashthepassword  For More Security And Staff
 
 
    - And Define the password comparing
